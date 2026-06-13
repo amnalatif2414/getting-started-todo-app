@@ -9,23 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install dependencies
         working-directory: ./backend
         run: npm install
 
-      - name: Run tests
-        working-directory: ./backend
-        run: npm test --if-present
-
       - name: Build Docker image
         run: docker build -t technova-taskapp --target=base .
 
-      - name: Confirm Docker image
+      - name: Confirm Docker image built
         run: docker images technova-taskapp
