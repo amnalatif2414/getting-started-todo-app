@@ -18,6 +18,8 @@ jobs:
           node-version: '22'
       - name: Install dependencies
         run: npm install
+      - name: Run tests
+        run: npm test -- --testPathIgnorePatterns=persistence
       - name: Build Docker image
         run: docker build --target backend-dev -t technova-taskapp .
       - name: Confirm Docker image built
