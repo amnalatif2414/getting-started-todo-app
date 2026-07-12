@@ -3,6 +3,8 @@ name: TechNova CI/CD Pipeline
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build-and-test:
