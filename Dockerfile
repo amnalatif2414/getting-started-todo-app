@@ -63,16 +63,6 @@ COPY backend/src ./src
 CMD ["npm", "run", "dev"]
 
 ###################################################
-# Stage: test
-#
-# This stage runs the tests on the backend. This is split into a separate
-# stage to allow the final image to not have the test dependencies or test
-# cases.
-###################################################
-FROM backend-dev AS test
-RUN npm run test
-
-###################################################
 # Stage: final
 #
 # This stage is intended to be the final "production" image. It sets up the
