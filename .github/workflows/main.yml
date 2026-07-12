@@ -2,7 +2,7 @@ name: TechNova CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-and-test:
@@ -10,18 +10,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Install dependencies
-        working-directory: ./backend
         run: npm install
-
       - name: Build Docker image
-        run: docker build -t technova-taskapp --target=base .
-
+        run: docker build -t technova-taskapp .
       - name: Confirm Docker image built
         run: docker images technova-taskapp
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Deploy application
+        run: docker compose up -d
